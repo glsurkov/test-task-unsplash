@@ -1,0 +1,22 @@
+version: '3'
+
+services:
+    frontend:
+        image: registry.gitlab.com/happyjojj/ai-agent-frontend/frontend:${CI_COMMIT_REF_NAME}
+        restart: always
+        environment:
+            - API_URL=https://$HOST_DOMAIN
+            - ENVIRONMENT=production
+        networks:
+            - traefik
+        labels:
+            - 'traefik.enable=true'
+            - 'traefik.docker.network=traefik'
+            - 'traefik.http.routers.frontend-$CI_COMMIT_REF_NAME.rule=Host(`$HOST_DOMAIN`)'
+            - 'traefik.http.routers.frontend-$CI_COMMIT_REF_NAME.entrypoints=https'
+            - 'traefik.http.routers.frontend-$CI_COMMIT_REF_NAME.tls.certresolver=simple-resolver'
+            - 'traefik.http.services.frontend-$CI_COMMIT_REF_NAME.loadbalancer.server.port=4173'
+
+networks:
+    traefik:
+        name: traefik

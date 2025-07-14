@@ -1,0 +1,49 @@
+.code_quality_template:
+    image: node:22.6-alpine3.20
+    extends: .main_and_merge_request
+    tags:
+        - aiagent-web-client-runner
+    stage: quality-check
+
+install-cache:
+    stage: install
+    extends: .code_quality_template
+    script:
+        - echo "Installing dependencies with Yarn..."
+        - yarn install
+        - yarn add autoprefixer
+        - yarn add --dev @types/node
+    artifacts:
+        paths:
+            - node_modules/
+
+lint:
+    extends: .code_quality_template
+    dependencies:
+        - install-cache
+    script:
+        - echo "Running ESLint..."
+        - yarn run eslint:check
+        - echo "Running Prettier..."
+        - yarn run prettier:check
+        - echo "Running Stylelint..."
+        - yarn run stylelint:check
+    needs: ['install-cache']
+
+unit-test:
+    extends: .code_quality_template
+    dependencies:
+        - install-cache
+    script:
+        - echo "Running unit tests..."
+        - yarn run test:unit
+    needs: ['install-cache']
+
+ts-build:
+    extends: .code_quality_template
+    dependencies:
+        - install-cache
+    script:
+        - echo "Building the project..."
+        - yarn run build
+    needs: ['install-cache', 'lint', 'unit-test']

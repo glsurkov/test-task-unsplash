@@ -1,0 +1,21 @@
+.root {
+    display: flex;
+    flex-direction: row;
+    background-color: var(--search-color);
+    padding: 12px 8px;
+    align-items: center;
+    gap: 4px;
+    border-radius: 12px;
+}
+
+.input-container {
+    background-color: inherit;
+    border: none;
+    outline: none;
+    font: var(--text-regular);
+
+    &::placeholder {
+        font: var(--text-regular);
+        color: var(--text-secondary-color);
+    }
+}

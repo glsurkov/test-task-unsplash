@@ -1,0 +1,58 @@
+@use 'reset';
+
+:root {
+    /** Colors */
+    --primary-color: #ffffff;
+    --close-color-secondary: #c4c4c4;
+    --search-color: #eeeeee;
+    --text-secondary-color: #9c9c9c;
+    --border-color: #ebebeb;
+    --accent-color: #eb0c0c;
+    --accent-hover-color: #c30000;
+
+    /** Fonts */
+    --font-family: 'Arial', sans-serif;
+    --text-regular: 400 16px/16px var(--font-family), sans-serif;
+}
+
+.scroll-styled {
+    &::-webkit-scrollbar {
+        width: 5px;
+        height: 5px;
+    }
+
+    &::-webkit-scrollbar-track {
+        background: transparent;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        border-radius: 12px;
+        background: hsl(210deg 9% 87% / 100%);
+    }
+
+    &::-webkit-scrollbar-thumb:hover {
+        background: hsl(210deg 9% 87% / 100%);
+    }
+
+    &::-webkit-scrollbar-button {
+        display: none;
+        background: hsl(210deg 9% 87% / 100%);
+    }
+}
+
+.ReactVirtualized__Grid::-webkit-scrollbar {
+    width: 5px;
+}
+
+.ReactVirtualized__Grid::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.ReactVirtualized__Grid::-webkit-scrollbar-thumb {
+    border-radius: 12px;
+    background-color: hsl(210deg 9% 87% / 100%);
+}
+
+.ReactVirtualized__Grid::-webkit-scrollbar-thumb:hover {
+    background-color: hsl(210deg 9% 80% / 100%);
+}

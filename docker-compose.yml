@@ -1,0 +1,27 @@
+services:
+    frontend:
+        build:
+            context: .
+            dockerfile: Dockerfile
+            args:
+                - VITE_WEBSOCKET_URL=${WEBSOCKET_URL}
+        restart: always
+        ports:
+            - 5173:5173
+            - 4173:4173
+        environment:
+            - API_URL=${API_URL}
+            - VITE_WEBSOCKET_URL=${WEBSOCKET_URL}
+        networks:
+            - traefik
+        labels:
+            - 'traefik.enable=true'
+            - 'traefik.docker.network=traefik'
+            - 'traefik.http.routers.frontend-$CI_COMMIT_REF_NAME.rule=Host(`$HOST_DOMAIN`)'
+            - 'traefik.http.routers.frontend-$CI_COMMIT_REF_NAME.entrypoints=https'
+            - 'traefik.http.routers.frontend-$CI_COMMIT_REF_NAME.tls.certresolver=simple-resolver'
+            - 'traefik.http.services.frontend-$CI_COMMIT_REF_NAME.loadbalancer.server.port=4173'
+
+networks:
+    traefik:
+        external: true

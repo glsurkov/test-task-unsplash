@@ -1,0 +1,15 @@
+{
+    "plugins": ["stylelint-order"],
+    "extends": ["stylelint-config-clean-order", "stylelint-config-standard-scss", "stylelint-config-standard"],
+    "rules": {
+        "declaration-empty-line-before": null,
+        "no-duplicate-selectors": null,
+        "no-descending-specificity": null,
+        "color-no-hex": null,
+        "block-no-empty": null,
+        "custom-property-pattern": null,
+        "selector-class-pattern": null,
+        "at-rule-no-unknown": null,
+        "value-no-vendor-prefix": null
+    }
+}

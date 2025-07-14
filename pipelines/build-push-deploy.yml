@@ -1,0 +1,21 @@
+build:
+    extends: .build
+    stage: build
+    variables:
+        SERVICE: frontend
+        WEBSOCKET_URL: default-websocket-url
+        API_URL: default-url
+
+push:
+    extends: .push
+    stage: push
+    needs: ['build']
+    when: on_success
+    variables:
+        SERVICE: frontend
+
+deploy:
+    extends: .deploy
+    stage: deploy
+    needs: ['build', 'push']
+    when: on_success

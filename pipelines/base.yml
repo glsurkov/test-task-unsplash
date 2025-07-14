@@ -1,0 +1,71 @@
+.base:
+    image: docker:27.5.1
+    variables:
+        DOCKER_BUILDKIT: 1
+        COMPOSE_DOCKER_CLI_BUILD: 1
+        DOCKER_DEFAULT_PLATFORM: linux/amd64
+    environment:
+        name: ${CI_COMMIT_REF_NAME}
+    tags:
+        - aiagent-web-runner-new
+    interruptible: true
+
+.base_env:
+    extends: .base
+    before_script:
+        - unset DOCKER_HOST
+        - echo "$CI_REGISTRY_PASSWORD" | docker login $CI_REGISTRY -u $CI_REGISTRY_USER --password-stdin
+
+.on_work_branch:
+    extends: .base_env
+    rules:
+        - if: '$CI_PIPELINE_SOURCE == "merge_request_event" || $CI_PIPELINE_SOURCE == "schedule"'
+          when: never
+        - if: '$CI_COMMIT_BRANCH == "main" || $CI_COMMIT_BRANCH == "develop" || $CI_COMMIT_BRANCH == "test"'
+          when: on_success
+
+.on_main_branch:
+    extends: .on_work_branch
+    rules:
+        - if: '$CI_COMMIT_BRANCH == "main"'
+          when: on_success
+
+.main_and_merge_request:
+    rules:
+        - if: '$CI_PIPELINE_SOURCE == "merge_request_event" || $CI_COMMIT_BRANCH == "main"'
+          when: on_success
+
+.merge_request:
+    rules:
+        - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+          when: on_success
+
+.build:
+    extends:
+        - .base_env
+        - .main_and_merge_request
+    script:
+        - echo Building $SERVICE 🛠 ️
+        - docker build --build-arg CI_COMMIT_REF_NAME=${CI_COMMIT_REF_NAME} --build-arg VITE_WEBSOCKET_URL=${WEBSOCKET_URL} --build-arg API_URL=${API_URL} --build-arg SERVICE_DIR=${SERVICE} -t registry.gitlab.com/happyjojj/ai-agent-frontend/${SERVICE}:${CI_COMMIT_REF_NAME} -f Dockerfile .
+        - echo Build $SERVICE completed 🚀
+
+.push:
+    extends:
+        - .base_env
+        - .main_and_merge_request
+    script:
+        - echo Pushing $SERVICE to registry 📦
+        - docker push registry.gitlab.com/happyjojj/ai-agent-frontend/${SERVICE}:${CI_COMMIT_REF_NAME}
+        - echo Push $SERVICE completed ✌️
+
+.deploy:
+    extends: .on_main_branch
+    script:
+        - echo Starting app 🚀
+        - docker-compose --profile app --compatibility -p aiagent_web_${CI_COMMIT_REF_NAME} -f deploy/docker-compose.yml up -d --remove-orphans --force-recreate
+
+.infra_update:
+    extends: .base_env
+    script:
+        - echo Updating infrastructure 🏗️
+        - docker-compose --profile single --compatibility -p aiagent_web_${CI_COMMIT_REF_NAME} -f deploy/docker-compose.yml up -d --remove-orphans --force-recreate

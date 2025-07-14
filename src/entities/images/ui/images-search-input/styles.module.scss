@@ -1,0 +1,34 @@
+.root {
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+}
+
+.search-input {
+    width: 420px;
+}
+
+.close-icon {
+    width: 19px;
+    height: 19px;
+    cursor: pointer;
+
+    rect {
+        fill: #c4c4c4;
+    }
+
+    path {
+        fill: var(--search-color);
+        fill-opacity: 1;
+    }
+}
+
+@media (max-width: 390px) {
+    .button {
+        width: 84px;
+    }
+
+    .search-input {
+        width: 266px;
+    }
+}

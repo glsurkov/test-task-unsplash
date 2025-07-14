@@ -1,0 +1,5 @@
+update_infra:
+    extends: .infra_update
+    stage: infra
+    when: manual
+    needs: []

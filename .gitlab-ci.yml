@@ -1,0 +1,13 @@
+stages:
+    - install
+    - quality-check
+    - build
+    - push
+    - deploy
+    - infra
+
+include:
+    - 'pipelines/base.yml'
+    - 'pipelines/quality-check.yml'
+    - 'pipelines/build-push-deploy.yml'
+    - 'pipelines/infra.yml'

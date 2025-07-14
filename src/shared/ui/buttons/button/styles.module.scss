@@ -1,0 +1,39 @@
+.button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+
+    &:disabled {
+        cursor: default;
+    }
+}
+
+.variant-clear {
+    padding: 0;
+    border: none;
+    background: transparent;
+}
+
+.variant-filled {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 12px;
+
+    font: var(--text-medium);
+
+    transition: 0.2s;
+
+    &.color-primary {
+        color: var(--primary-color);
+        background: var(--accent-color);
+
+        &:hover {
+            background: var(--accent-hover-color);
+        }
+
+        &.disabled:hover {
+            background: var(--accent-color);
+        }
+    }
+}
