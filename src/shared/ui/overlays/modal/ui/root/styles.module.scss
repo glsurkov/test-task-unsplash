@@ -39,9 +39,9 @@
 }
 
 .content-size-md {
-    max-height: 760px;
-    max-width: 760px;
     overflow: hidden;
+    max-width: 760px;
+    max-height: 760px;
 }
 
 .isClosing {
@@ -72,8 +72,8 @@
 }
 
 .close {
-    z-index: 12;
     position: absolute;
+    z-index: 12;
     top: 10px;
     right: 10px;
 

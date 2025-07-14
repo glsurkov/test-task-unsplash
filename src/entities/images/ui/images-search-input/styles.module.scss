@@ -9,9 +9,15 @@
 }
 
 .close-icon {
+    cursor: pointer;
+
+    z-index: 3;
+
+    justify-self: end;
+
     width: 19px;
     height: 19px;
-    cursor: pointer;
+    margin-left: auto;
 
     rect {
         fill: #c4c4c4;
@@ -23,7 +29,7 @@
     }
 }
 
-@media (max-width: 390px) {
+@media (width <= 390px) {
     .button {
         width: 84px;
     }

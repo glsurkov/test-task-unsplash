@@ -58,7 +58,6 @@ export const ImagesCards = (props: ImagesCardsProps) => {
                     ? images.map((image) => <ImageCard key={image.id} image={image} />)
                     : EMPTY_IMAGES_PLACEHOLDER}
                 <div ref={observerRef} style={{ height: 1 }} />
-                {isLoading && <p>Загрузка...</p>}
             </div>
         </>
     );

@@ -1,7 +1,3 @@
 {
-  "rewrites": [
-    { "source": "/api/:match*",
-      "destination": "https://api.unsplash.com/:match*"
-    }
-  ]
+    "rewrites": [{ "source": "/api/:match*", "destination": "https://api.unsplash.com/:match*" }]
 }

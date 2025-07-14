@@ -1,8 +1,8 @@
 .button {
+    cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    cursor: pointer;
 
     &:disabled {
         cursor: default;

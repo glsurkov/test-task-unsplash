@@ -1,16 +1,17 @@
 .root {
     display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
+    flex-flow: row wrap;
     gap: 8px;
+    color: var(--primary-color);
 }
 
 .card {
-    height: 204px;
-    width: 204px;
-    border-radius: 4px;
-    border: 1px solid var(--border-color);
     overflow: hidden;
+
+    width: 204px;
+    height: 204px;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
 }
 
 .hidden-image {
@@ -23,10 +24,10 @@
     object-fit: cover;
 }
 
-@media (max-width: 390px) {
+@media (width <= 390px) {
     .card {
-        height: 114px;
         width: 114px;
+        height: 114px;
     }
 
     .modal-container {

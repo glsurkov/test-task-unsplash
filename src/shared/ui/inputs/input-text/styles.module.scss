@@ -1,18 +1,28 @@
 .root {
     display: flex;
     flex-direction: row;
-    background-color: var(--search-color);
-    padding: 12px 8px;
-    align-items: center;
     gap: 4px;
+    align-items: center;
+
+    padding: 12px 10px;
     border-radius: 12px;
+
+    background-color: var(--search-color);
+
+    &-focused {
+        background-color: var(--input-color);
+    }
 }
 
 .input-container {
-    background-color: inherit;
+    flex: 1;
+
     border: none;
-    outline: none;
+
     font: var(--text-regular);
+
+    background-color: inherit;
+    outline: none;
 
     &::placeholder {
         font: var(--text-regular);

@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import { ChangeEvent, useCallback, useState } from 'react';
+import { ChangeEvent, MouseEventHandler, useCallback, useState } from 'react';
 import { useSelector } from 'react-redux';
 
 import { getLastSearch } from '@/entities/images/store/selectors.ts';
@@ -31,8 +31,9 @@ const Landing = () => {
         setSearchValue(e.target.value.toLowerCase());
     }, []);
 
-    const clearSearch = useCallback(() => {
+    const clearSearch: MouseEventHandler<HTMLOrSVGElement> = useCallback((e) => {
         setSearchValue('');
+        e.stopPropagation();
     }, []);
 
     return (
