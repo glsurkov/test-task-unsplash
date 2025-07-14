@@ -10,6 +10,7 @@ import { useAppSelector } from '@/shared/lib/redux';
 import { Modal } from '@/shared/ui/overlays';
 
 import styles from './styles.module.scss';
+import {Loader} from "@/shared/ui/feedback";
 
 interface ImagesCardsProps {
     searchValue: string;
@@ -109,6 +110,7 @@ const ImageCard = (props: ImageCardProps) => {
                 isVisible={isVisible}
                 onClose={onClose}
                 element={
+              <div className={styles.imageContainer}>
                     <img
                         className={clsx(styles.image, {
                             [styles.hiddenImage]: isFullLoading,
@@ -117,6 +119,8 @@ const ImageCard = (props: ImageCardProps) => {
                         alt={image?.alt_description}
                         onLoad={onFullLoad}
                     />
+                {isFullLoading && <Loader/>}
+              </div>
                 }
             />
         </>
