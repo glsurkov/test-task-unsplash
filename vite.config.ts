@@ -13,7 +13,6 @@ export default defineConfig(({ mode }) => {
     const env = loadEnv(mode, process.cwd(), '');
 
     const api = env.API_URL ?? 'https://api.unsplash.com';
-    console.log(api);
     const generateScopedName = mode === MODE.DEV ? '[folder]--[local]-[hash:base64:5]' : '[local]-[hash:base64:5]';
 
     return {
